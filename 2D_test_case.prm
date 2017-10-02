@@ -1,0 +1,38 @@
+# Listing of Parameters
+# --------------------
+# set the finite element type
+set fe_type = BDM
+# order of the finite element.
+set fe order = 3
+# dimension of the problem (eg. 2 or 3 dimension)
+set dim = 2
+# initial global refinement
+set initial_refine = 2
+# program loop cycles
+set n_cycles = 4
+# grid distortion parameter (set to 0 for no distortion)
+set grid_distort_parameter = 0
+# grid print out option (set to false for no print out)
+set grid_print_bool = false
+# output convergence rates to text file
+set output_convergence_rates = true
+# set solver type (1 for direct solver, 0 schur complement)
+set solver_type = 1
+# adaptive refinement option (set to false for no adaptive refinement)
+set adaptive_refinement = false
+
+subsection equation
+
+  #expression for boundary pressure.  Function of x,y (and z)
+  set pressure_bdy = y*sin(pi*x);
+
+  #expression for reference solution.  Function of x,y (and z)
+  set reference = (y*y-1)*sin(pi*(x*x-1)) ; -2*(y*y*y/3-y)*pi*x*cos(pi*(x*x-1)) ; y*sin(pi*x)
+
+  #expression for the gradient of the reference solution.  Function of x,y (and z)
+  set gradient = 0 ;0 ; 0 ; 0 ;0 ; 0
+
+  #expression for the right-hand side.  Function of x,y (and z)
+  set rhs = (y*y-1)*sin(pi*(x*x-1))+pi*y*cos(pi*x) ; -2*(y*y*y/3-y)*pi*x*cos(pi*(x*x-1))+sin(pi*x) ; 0
+
+end
